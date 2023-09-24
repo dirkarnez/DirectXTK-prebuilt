@@ -10,20 +10,21 @@ jobs:
       matrix:
         compiler:
         - {
-            name: "x86_64-8.1.0-release-posix-seh-rt_v6-rev0",
-            url: "https://github.com/dirkarnez/cpp-tools/raw/main/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z",
-            DirectXMath: "https://github.com/dirkarnez/DirectXMath-prebuilt/releases/download/dec2022/DirectXMath-dec2022-x86_64-8.1.0-release-posix-seh-rt_v6-rev0.zip"
-          }
-        - {
-            name: "winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1",
-            url: "https://github.com/brechtsanders/winlibs_mingw/releases/download/11.2.0-12.0.1-9.0.0-r1/winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1.zip",
-            DirectXMath: "https://github.com/dirkarnez/DirectXMath-prebuilt/releases/download/dec2022/DirectXMath-dec2022-winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1.zip"
-          }
-        - {
             name: "msvc2019",
             DirectXMath: "https://github.com/dirkarnez/DirectXMath-prebuilt/releases/download/dec2022/DirectXMath-dec2022-msvc2019.zip"
           }
 
+        # - {
+        #     name: "x86_64-8.1.0-release-posix-seh-rt_v6-rev0",
+        #     url: "https://github.com/dirkarnez/cpp-tools/raw/main/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z",
+        #     DirectXMath: "https://github.com/dirkarnez/DirectXMath-prebuilt/releases/download/dec2022/DirectXMath-dec2022-x86_64-8.1.0-release-posix-seh-rt_v6-rev0.zip"
+        #   }
+        # - {
+        #     name: "winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1",
+        #     url: "https://github.com/brechtsanders/winlibs_mingw/releases/download/11.2.0-12.0.1-9.0.0-r1/winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1.zip",
+        #     DirectXMath: "https://github.com/dirkarnez/DirectXMath-prebuilt/releases/download/dec2022/DirectXMath-dec2022-winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1.zip"
+        #   }
+          
     runs-on: windows-latest
     env:
       libraryName: DirectXTK
