@@ -30,6 +30,13 @@ jobs:
         shell: cmd
         run: git clone --recurse-submodules https://github.com/microsoft/DirectXTK.git && cd DirectXTK && git checkout ${{ env.tagName }}
 
+      - uses: GuillaumeFalourd/setup-windows10-sdk-action@v1.11
+
+      - shell: cmd
+        run: |
+          cd /d "C:\Program Files (x86)\Windows Kits\10" &&^
+          dir
+          
       - name: download compiler
         shell: cmd
         run: |
