@@ -104,7 +104,7 @@ jobs:
             -DBUILD_XAUDIO_WIN7=OFF ^
             -Ddirectxmath_DIR="%CD_LINUX%/DirectXMath/share/directxmath" ^
             -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" -B./cmake-build &&^
-            cd cmake-build && cmake --build . && cmake --install . 
+            cd cmake-build && cmake --build . && dir && cmake --install . 
             
       - name: Archive Release
         uses: thedoctor0/zip-release@master
