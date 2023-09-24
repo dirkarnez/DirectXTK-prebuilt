@@ -19,6 +19,10 @@ jobs:
             url: "https://github.com/brechtsanders/winlibs_mingw/releases/download/11.2.0-12.0.1-9.0.0-r1/winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1.zip",
             DirectXMath: "https://github.com/dirkarnez/DirectXMath-prebuilt/releases/download/dec2022/DirectXMath-dec2022-winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1.zip"
           }
+        - {
+            name: "msvc2019",
+            DirectXMath: "https://github.com/dirkarnez/DirectXMath-prebuilt/releases/download/dec2022/DirectXMath-dec2022-msvc2019.zip"
+          }
 
     runs-on: windows-latest
     env:
@@ -40,6 +44,7 @@ jobs:
           dir /s
           
       - name: download compiler
+        if: ${{  matrix.compiler.url }}
         shell: cmd
         run: |
           curl ${{ matrix.compiler.url }} -L --output compiler &&^
@@ -59,18 +64,38 @@ jobs:
           curl ${{ matrix.compiler.DirectXMath }} -L --output DirectXMath.zip &&^
           7z.exe x DirectXMath.zip -o"DirectXMath"
           
+      # - name: set PATH, check mingw version, cmake generate, build and install
+      #   if: ${{  matrix.compiler.url }}
+      #   shell: cmd
+      #   run: |
+      #       set PATH=^
+      #       ${{ github.workspace }}\mingw64;^
+      #       ${{ github.workspace }}\mingw64\bin;^
+      #       ${{ github.workspace }}\cmake-3.24.0-windows-x86_64\bin;^
+      #       C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64;
+      #       set CD_LINUX=%CD:\=/%
+      #       gcc --version &&^
+      #       cd DirectXTK &&^
+      #       cmake.exe -G"MinGW Makefiles" ^
+      #       -DCMAKE_BUILD_TYPE=Release ^
+      #       -DBUILD_SHARED_LIBS=OFF ^
+      #       -DBUILD_XAUDIO_WIN10=OFF ^
+      #       -DBUILD_XAUDIO_WIN8=OFF ^
+      #       -DBUILD_XAUDIO_WIN7=OFF ^
+      #       -Ddirectxmath_DIR="%CD_LINUX%/DirectXMath/share/directxmath" ^
+      #       -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" -B./cmake-build &&^
+      #       cd cmake-build && cmake --build . && cmake --install . 
+
       - name: set PATH, check mingw version, cmake generate, build and install
+        if: ${{  !matrix.compiler.url }}
         shell: cmd
         run: |
             set PATH=^
-            ${{ github.workspace }}\mingw64;^
-            ${{ github.workspace }}\mingw64\bin;^
             ${{ github.workspace }}\cmake-3.24.0-windows-x86_64\bin;^
             C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64;
             set CD_LINUX=%CD:\=/%
-            gcc --version &&^
             cd DirectXTK &&^
-            cmake.exe -G"MinGW Makefiles" ^
+            cmake.exe -G "Visual Studio 17 2022" -A x64 ^
             -DCMAKE_BUILD_TYPE=Release ^
             -DBUILD_SHARED_LIBS=OFF ^
             -DBUILD_XAUDIO_WIN10=OFF ^
