@@ -31,10 +31,12 @@ jobs:
         run: git clone --recurse-submodules https://github.com/microsoft/DirectXTK.git && cd DirectXTK && git checkout ${{ env.tagName }}
 
       - uses: GuillaumeFalourd/setup-windows10-sdk-action@v1.11
+        with:
+          sdk-version: 17763
 
       - shell: cmd
         run: |
-          cd /d "C:\Program Files (x86)\Windows Kits\10" &&^
+          cd /d "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64" &&^
           dir /s
           
       - name: download compiler
@@ -63,7 +65,8 @@ jobs:
             set PATH=^
             ${{ github.workspace }}\mingw64;^
             ${{ github.workspace }}\mingw64\bin;^
-            ${{ github.workspace }}\cmake-3.24.0-windows-x86_64\bin;
+            ${{ github.workspace }}\cmake-3.24.0-windows-x86_64\bin;^
+            C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64;
             set CD_LINUX=%CD:\=/%
             gcc --version &&^
             cd DirectXTK &&^
